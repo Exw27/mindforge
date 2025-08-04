@@ -26,6 +26,12 @@ If no prompt is provided, an interactive REPL opens.
 
 Plain text output by default. Use --html to allow markup.
 
+Jinja2 templates for prompts:
+- Global templates: ~/.mindforge/templates/<name>.j2
+- Per-model template: ~/.mindforge/models/<model>/template.j2
+- Selection order: per-model > named (via PARAMS template=<name>) > GGUF chat_template > fallback
+- Context: system, messages (role/content), tools, response_format, params, model_name
+
 ### Serve OpenAI-compatible API
 ```bash
 mindforge serve

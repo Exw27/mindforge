@@ -166,7 +166,15 @@ async def chat_completions(req: ChatRequest):
         tools_prefix = f"system: Available tools (JSON): {json.dumps(tool_descriptions)}\n"
     base_prefix = sys_prefix + tools_prefix
     def render_history(msgs: List[ChatMessage]):
-        return base_prefix + "\n".join([f"{m.role}: {m.content}" for m in msgs]) + "\nassistant:"
+        try:
+            from .templates import render_chat
+            msg_dicts = [{"role": m.role, "content": m.content} for m in msgs]
+            sys_msg = None
+            if base_prefix:
+                sys_msg = base_prefix.strip()
+            return render_chat(req.model, model, msg_dicts, system=sys_msg, tools=[t.dict() for t in (req.tools or [])], response_format=(req.response_format.dict() if req.response_format else None), params={"temperature": req.temperature, "top_p": req.top_p})
+        except Exception:
+            return base_prefix + "\n".join([f"{m.role}: {m.content}" for m in msgs]) + "\nassistant:"
     model, tokenizer = _ensure_loaded(req.model, getattr(req, 'load_opts', None))
 
     if not req.stream:

@@ -6,3 +6,4 @@ huggingface-hub
 fastapi
 uvicorn
 httpx
+jinja2

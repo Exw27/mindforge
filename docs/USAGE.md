@@ -20,6 +20,11 @@ Create from Modelfile:
 mindforge create my-model -f /path/to/Modelfile
 ```
 
+Templates:
+- Put named templates in ~/.mindforge/templates/<name>.j2 and reference with `PARAMS template=<name>` in your Modelfile
+- Or place per-model template at ~/.mindforge/models/<model>/template.j2 to auto-apply
+- If a GGUF exposes a chat_template, it is used by default unless overridden
+
 ## Server
 
 Start server:

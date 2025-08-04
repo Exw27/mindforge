@@ -92,11 +92,12 @@ def list_models():
     """Lists all downloaded models."""
     ensure_dirs()
     print("The following models are available:")
-    for model_dir in MODELS_DIR.iterdir():
-        if model_dir.is_dir():
-            print(f"- {model_dir.name}")
-    for custom_model_file in MODELS_DIR.glob("*.json"):
-        print(f"- {custom_model_file.stem} (custom)")
+    dirs = {p.name for p in MODELS_DIR.iterdir() if p.is_dir()}
+    customs = {p.stem for p in MODELS_DIR.glob("*.json")}
+    all_names = sorted(dirs | customs)
+    for name in all_names:
+        suffix = " (custom)" if name in customs else ""
+        print(f"- {name}{suffix}")
 
 
 def remove_model(model_name_str):
