@@ -6,7 +6,7 @@ A simple, Ollama-like tool to run Hugging Face and GGUF language models locally.
 
 Quick install:
 
-curl -fsSL https://example.com/mindforge/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Exw27/mindforge/main/install.sh | sh
 
 From source:
 
