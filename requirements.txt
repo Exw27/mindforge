@@ -5,3 +5,4 @@ llama-cpp-python
 huggingface-hub
 fastapi
 uvicorn
+httpx
