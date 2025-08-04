@@ -121,7 +121,12 @@ else
   GIT_URL_DEFAULT="https://github.com/Exw27/mindforge.git"
   GIT_URL="${GIT_URL:-$GIT_URL_DEFAULT}"
   info "Installing ${PROJECT_NAME} from Git: $GIT_URL"
+  pip -q install --upgrade pip setuptools wheel
   pip -q install "git+${GIT_URL}#egg=${PROJECT_NAME}"
+  # Best-effort deps when installed package lacks vendor deps
+  if ! python -c 'import transformers,fastapi,uvicorn,torch' >/dev/null 2>&1; then
+    pip -q install transformers fastapi uvicorn torch tqdm llama-cpp-python huggingface-hub || true
+  fi
 fi
 
 # Create shim
