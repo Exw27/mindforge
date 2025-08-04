@@ -34,12 +34,14 @@ EOF
 VERBOSE=0
 UNINSTALL=0
 PREFIX=""
+FORCE_DEPS=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --uninstall) UNINSTALL=1 ;;
     --prefix) shift; PREFIX="$1" ;;
     --verbose) VERBOSE=1 ;;
+    --force-deps) FORCE_DEPS=1 ;;
     -h|--help) usage; exit 0 ;;
     *) warn "unknown arg: $1" ;;
   esac
@@ -123,9 +125,9 @@ else
   info "Installing ${PROJECT_NAME} from Git: $GIT_URL"
   pip -q install --upgrade pip setuptools wheel
   pip -q install "git+${GIT_URL}#egg=${PROJECT_NAME}"
-  # Best-effort deps when installed package lacks vendor deps
-  if ! python -c 'import transformers,fastapi,uvicorn,torch' >/dev/null 2>&1; then
-    pip -q install transformers fastapi uvicorn torch tqdm llama-cpp-python huggingface-hub || true
+  if [ "$FORCE_DEPS" -eq 1 ] || ! python -c 'import transformers,fastapi,uvicorn,torch' >/dev/null 2>&1; then
+    info "Installing runtime dependencies"
+    pip -q install transformers fastapi uvicorn torch tqdm llama-cpp-python huggingface-hub
   fi
 fi
 
