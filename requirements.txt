@@ -1,0 +1,7 @@
+transformers
+torch
+tqdm
+llama-cpp-python
+huggingface-hub
+fastapi
+uvicorn
