@@ -116,3 +116,13 @@ mindforge rm <MODEL_NAME>
 Notes:
 - GGUF embeddings not supported in /v1/embeddings
 - Sessions/history endpoints are WIP when running via CLI; available when serving the module directly
+
+## Credits
+- Python: https://www.python.org/
+- FastAPI: https://fastapi.tiangolo.com/ and Uvicorn: https://www.uvicorn.org/
+- Hugging Face Transformers: https://github.com/huggingface/transformers and Hub: https://huggingface.co/docs/hub/index
+- PyTorch: https://pytorch.org/
+- llama-cpp-python (GGUF): https://github.com/abetlen/llama-cpp-python
+- llama-cpp: https://github.com/ggml-org/llama.cpp
+- Jinja2: https://jinja.palletsprojects.com/
+- httpx: https://www.python-httpx.org/ and tqdm: https://tqdm.github.io/
